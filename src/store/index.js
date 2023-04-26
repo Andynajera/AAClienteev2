@@ -108,12 +108,12 @@ export default new Vuex.Store({
     //USUARIOS
     //ver el listado de usuarios
     fetchUsers({ commit }) {
-      fetch('https://localhost:7192/Users')
+      fetch('https://expedienteaa.azurewebsites.net/Users')
         .then(result => result.json())
         .then(data => commit('setUsers', data))
     },
     fetchUsersId({ commit }) {
-      fetch('https://localhost:7192/Users' + `/${id}`)
+      fetch('https://expedienteaa.azurewebsites.net/Users' + `/${id}`)
         .then(result => result.json())
         .then(data => commit('setUsers', data))
 
@@ -124,7 +124,7 @@ export default new Vuex.Store({
     //hacer el post
     addUsers({ commit }, userInfo) {
       //commit('addUsers',userInfo)
-      fetch('https://localhost:7192/Users', {
+      fetch('https://expedienteaa.azurewebsites.net/Users', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -137,7 +137,7 @@ export default new Vuex.Store({
 
     //Buscar por nombre
     searchUser({ commit }, name) {
-      fetch('https://localhost:7192/Users/name?name=' + `${name}`)
+      fetch('https://expedienteaa.azurewebsites.net/Users/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -149,7 +149,7 @@ export default new Vuex.Store({
 
 
     deleteUser({ commit }, id) {
-      fetch('https://localhost:7192/Users' + `/${id}`, {
+      fetch('https://expedienteaa.azurewebsites.net/Users' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -171,13 +171,13 @@ export default new Vuex.Store({
 
     //GRADOS
     fetchDegree({ commit }) {
-      fetch('https://localhost:7192/Degree')
+      fetch('https://expedienteaa.azurewebsites.net/Degree')
         .then(result => result.json())
         .then(data => commit('setDegree', data))
     },
     //Buscar por nombre
     searchDegree({ commit }, name) {
-      fetch('https://localhost:7192/Degree/name?name=' + `${name}`)
+      fetch('https://expedienteaa.azurewebsites.net/Degree/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -187,7 +187,7 @@ export default new Vuex.Store({
     //hacer el post
     addDegree({ commit }, degreeInfo) {
       //commit('addUsers',userInfo)
-      fetch('https://localhost:7192/Degree', {
+      fetch('https://expedienteaa.azurewebsites.net/Degree', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -199,7 +199,7 @@ export default new Vuex.Store({
     },
 
     deleteDegree({ commit }, id) {
-      fetch('https://localhost:7192/Degree' + `/${id}`, {
+      fetch('https://expedienteaa.azurewebsites.net/Degree' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -215,7 +215,7 @@ export default new Vuex.Store({
     //Precios
 
     fetchPagos({ commit }) {
-      fetch('https://localhost:7192/Pagos')
+      fetch('https://expedienteaa.azurewebsites.net/Pagos')
         .then(result => result.json())
         .then(data => commit('setPagos', data))
     },
@@ -234,7 +234,7 @@ export default new Vuex.Store({
     },*/
     //hacer el post
     addPagos({ commit }, pagosInfo) {
-      fetch('https://localhost:7192/Pagos', {
+      fetch('https://expedienteaa.azurewebsites.net/Pagos', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
