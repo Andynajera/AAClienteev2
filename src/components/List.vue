@@ -9,7 +9,8 @@
     <v-row no-gutters id="gene">
 
       <!--Buscar por nombre-->
-      <v-container>        <v-text-field
+      <v-container>     
+           <v-text-field
         
         class="text-green"
         type="text"
@@ -73,17 +74,19 @@
                 <v-card-title style="font-size: 12px" class="texto"
                   ><b>Email: &nbsp; </b> {{ item.email }}</v-card-title
                 >
-                <v-card-title style="font-size: 12px" class="texto"
-                  ><b>Grado: &nbsp; </b> {{ item.nameDegree }}</v-card-title
+                <v-card-title style="font-size: 12px" 
+                  ><b>nameDegree: &nbsp; </b> {{ item.nameDegree }}</v-card-title
+                >
+                <v-card-title style="font-size: 12px" 
+                  ><b>Notas: &nbsp; </b> {{ item.notas }}</v-card-title
                 >
                 <!--//Conseguir clikar y que vaya al id-->
-
                 <v-btn
                   :item="Users"
-                  v-on:click="showUserDetails"
+                  v-on:click="showUserDetails(item.id)"
                   color="yellow"
                   variant="primary"
-                  >{{ $t("header.search.button5") }}</v-btn
+                  >{{ $t("header.search.button5") }},{{ item.id }}</v-btn
                 >
                 <!--delete-->
                 <v-btn  v-if="$store.state.role==='admin'"
@@ -119,10 +122,14 @@ export default {
   },
   methods: {
     showUserDetails(item) {
+      
       //enrrutamiento clickando al que pinches
-      this.$router.push(`Users/${item.id}`);
+      this.$router.push(`Users/${item}`);
     },
-    ...mapActions({ deleteUser: "deleteUser", searchUser: "searchUser" }),
+
+
+    ...mapActions({ deleteUser: "deleteUser", searchUser: "searchUser",setUsersId:"setUsersId"  }),
+
 
     launchQuery() {
       this.searchUser(this.name);

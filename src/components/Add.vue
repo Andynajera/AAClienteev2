@@ -45,6 +45,13 @@
           placeholder="Enter email"
           required
         ></v-text-field>
+        <v-text-field
+          id="input-3"
+          v-model="form.notas"
+          type="text"
+          placeholder="Enter notas"
+          required
+        ></v-text-field>
 
       
       <v-btn type="submit"   color="success" variant="primary">Submit</v-btn>
@@ -66,7 +73,7 @@
                   name: '', 
                   nameDegree:'',
                   email: '',
-                 
+                  notas:''
                  
               },
                  
@@ -75,11 +82,12 @@
       },
       methods:{
           onSubmit(){
+            
               this.addUsers({
                   name: this.form.name, 
-                  nameDegree: this.nameDegree,
+                  nameDegree: this.form.nameDegree,
                   email: this.form.email,
-                 
+                  notas: this.form.notas,
                  
               })
           },

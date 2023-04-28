@@ -19,6 +19,7 @@ const messages = {
             captio5:'Users Details',
             caption6:'List of Add Payments',
             caption7:'Add Users',
+            caption7:'Add Degrees',
 
             button:'Payments',
             button2:'Login',
@@ -49,6 +50,7 @@ const messages = {
             caption5:'Detalles de los Usuarios',
             caption6:'Añadir pagos',
             caption7:'Añadir Usuarios',
+            caption7:'Añadir Grados',
 
             button:'Pagos',
             button2:'Iniciar sesion',

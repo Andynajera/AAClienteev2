@@ -19,7 +19,6 @@
 import Header from '@/components/Especificas/Header.vue';
 import Footer from './components/Especificas/Footer.vue';
 import Vistas from './components/Especificas/Vistas.vue';
-
 import store from "@/store";
 export default {
   created() {
@@ -27,6 +26,8 @@ export default {
       store.dispatch("fetchDegree"),
       store.dispatch("fetchPagos");
   },
+
+
   components: {
     Header,
     Footer,

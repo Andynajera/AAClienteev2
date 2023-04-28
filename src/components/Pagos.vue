@@ -49,7 +49,7 @@
                     <v-card-title style="font-size: 12px" class="texto"
                     ><b>usuarios: &nbsp; </b> {{ item.users }}</v-card-title>
                <!--//Conseguir clikar y que vaya al id-->   
-                  <v-btn :item="Pagos" v-on:click="showUserDetails" color="yellow" variant="primary">{{ $t("header.search.button5") }}</v-btn>
+                  <v-btn :item="Pagos" v-on:click="showUserDetails(item.id)" color="yellow" variant="primary">{{ $t("header.search.button5") }}</v-btn>
           <!-- <v-btn @click="onDeletePagos(item.id)"  color="pink" variant="primary">BORRAR {{ item.id }}</v-btn> --> 
                  
                
@@ -84,7 +84,7 @@
    
       showUserDetails(item) {
         //enrrutamiento clickando al que pinches
-        this.$router.push(`Users/${item.id}`);
+        this.$router.push(`Users/${item}`);
       },
      /* 
       ...mapActions({ deletePagos: 'deletePagos',}),

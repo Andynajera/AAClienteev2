@@ -1,5 +1,3 @@
-
-
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -35,9 +33,6 @@ export default new Vuex.Store({
     //Usuarios
     setUsers(state, payload) {
       state.Users = payload
-    },
-    setUsersId(state,setIDU){
-    state.Users = state.Users.filter(({ id }) => id === setIDU);
     },
     addUsers(state, payload) {
       state.Users.push(payload)
@@ -113,24 +108,23 @@ export default new Vuex.Store({
     //USUARIOS
     //ver el listado de usuarios
     fetchUsers({ commit }) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users')
+      fetch('https://localhost:7192/Users')
         .then(result => result.json())
         .then(data => commit('setUsers', data))
     },
-    setUsersId({ commit },id) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users' + `/${this.id}`)
+    fetchUsersId({ commit }) {
+      fetch('https://localhost:7192/Users' + `/${id}`)
         .then(result => result.json())
-        .then(data => commit('setUsersId', data))
+        .then(data => commit('setUsers', data))
 
       //recargar pagina
-      commit('setUsersId', id)
+      commit('setUsers', id)
     },
 
     //hacer el post
     addUsers({ commit }, userInfo) {
-      
       //commit('addUsers',userInfo)
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users', {
+      fetch('https://localhost:7192/Pagos', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -143,7 +137,7 @@ export default new Vuex.Store({
 
     //Buscar por nombre
     searchUser({ commit }, name) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users/name?name=' + `${name}`)
+      fetch('https://localhost:7192/Users/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -155,7 +149,7 @@ export default new Vuex.Store({
 
 
     deleteUser({ commit }, id) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users' + `/${id}`, {
+      fetch('https://localhost:7192/Users' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -177,13 +171,13 @@ export default new Vuex.Store({
 
     //GRADOS
     fetchDegree({ commit }) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree')
+      fetch('https://localhost:7192/Degree')
         .then(result => result.json())
         .then(data => commit('setDegree', data))
     },
     //Buscar por nombre
     searchDegree({ commit }, name) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree/name?name=' + `${name}`)
+      fetch('https://localhost:7192/Degree/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -193,7 +187,7 @@ export default new Vuex.Store({
     //hacer el post
     addDegree({ commit }, degreeInfo) {
       //commit('addUsers',userInfo)
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree', {
+      fetch('https://localhost:7192/Degree', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -205,7 +199,7 @@ export default new Vuex.Store({
     },
 
     deleteDegree({ commit }, id) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree' + `/${id}`, {
+      fetch('https://localhost:7192/Degree' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -221,7 +215,7 @@ export default new Vuex.Store({
     //Precios
 
     fetchPagos({ commit }) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Pagos')
+      fetch('https://localhost:7192/Pagos')
         .then(result => result.json())
         .then(data => commit('setPagos', data))
     },
@@ -240,7 +234,9 @@ export default new Vuex.Store({
     },*/
     //hacer el post
     addPagos({ commit }, pagosInfo) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Pagos', {
+      
+      //commit('addUsers',userInfo)
+      fetch('https://localhost:7192/Pagos', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -255,3 +251,5 @@ export default new Vuex.Store({
   modules: {
   }
 })
+
+
