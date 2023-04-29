@@ -12,19 +12,19 @@
       <v-container>     
            <v-text-field
         
-        class="text-green"
-        type="text"
-        v-model="name"
-        clearable
-        hide-details="auto"
-        label="Filled"
-        placeholder="Search"
-        filled
-        rounded
-        dense
-        single-line
-        append-icon="mdi-magnify"
-       
+        
+           class="text-green"
+          type="text"
+          v-model="name"
+          clearable
+          hide-details="auto"
+          label="Pon true para buscar los que han pagado "
+          placeholder="Search"
+          filled
+          rounded
+          dense
+          single-line
+          append-icon="mdi-magnify"
       />
       <v-btn  @click="launchQuery">{{ $t("header.search.button9") }}</v-btn>
 
@@ -128,17 +128,22 @@ export default {
     },
 
 
-    ...mapActions({ deleteUser: "deleteUser", searchUser: "searchUser",setUsersId:"setUsersId"  }),
+    ...mapActions({ deleteUser: "deleteUser", searchUser: "searchUser",setUsersId:"setUsersId" ,fetchUsers:"fetchUsers" }),
 
 
     launchQuery() {
-      this.searchUser(this.name);
+      if(this.name){
+        this.searchUser(this.name);
+        return
+      }
+      this.fetchUsers();
     }, 
-    //metodo creado por dar error en console
+    //metodo creado por dar error en console|
     name(){},
     
     onDeleteUser(id) {
       this.deleteUser(id);
+      
     },
   },
 };

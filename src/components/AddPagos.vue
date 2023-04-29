@@ -3,7 +3,7 @@
      
    <div style="background-color: pink;">
      <h1 style="text-align:center">
-       {{ $t("header.search.caption7") }}
+       {{ $t("header.search.caption8") }}
        </h1>
      </div>
 
@@ -17,7 +17,7 @@
          >
            <div class="title font-weight-light" style="color: brown;">{{ $t("header.search.button6") }}</div>
          </v-layout>
-         <router-link to="/Users">
+         <router-link to="/Pagos">
            <v-btn variant="success" color="pink">{{ $t("header.search.button4") }}</v-btn>
          </router-link>
      <v-form @submit="onSubmit" @reset="onReset"  >

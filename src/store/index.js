@@ -1,5 +1,4 @@
 
-
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -71,10 +70,9 @@ export default new Vuex.Store({
     setPagos(state, payload) {
       state.Pagos = payload
     },
-    /* deletePagos(state, idToRemove) {
+     deletePagos(state, idToRemove) {
        state.Pagos = state.Pagos.filter(({id}) => id !== idToRemove);
-       location.reload();
-     },*/
+     },
     addPagos(state, payload) {
       state.Pagos.push(payload)
     },
@@ -113,12 +111,12 @@ export default new Vuex.Store({
     //USUARIOS
     //ver el listado de usuarios
     fetchUsers({ commit }) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users')
+      fetch('https://expedienteokpro.azurewebsites.net/Users')
         .then(result => result.json())
         .then(data => commit('setUsers', data))
     },
     setUsersId({ commit },id) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users' + `/${this.id}`)
+      fetch('https://expedienteokpro.azurewebsites.net/Users' + `/${this.id}`)
         .then(result => result.json())
         .then(data => commit('setUsersId', data))
 
@@ -128,9 +126,9 @@ export default new Vuex.Store({
 
     //hacer el post
     addUsers({ commit }, userInfo) {
-      
+      debugger
       //commit('addUsers',userInfo)
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users', {
+      fetch('https://expedienteokpro.azurewebsites.net/Users', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -143,7 +141,7 @@ export default new Vuex.Store({
 
     //Buscar por nombre
     searchUser({ commit }, name) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users/name?name=' + `${name}`)
+      fetch('https://expedienteokpro.azurewebsites.net/Users/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -155,7 +153,7 @@ export default new Vuex.Store({
 
 
     deleteUser({ commit }, id) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Users' + `/${id}`, {
+      fetch('https://expedienteokpro.azurewebsites.net/Users' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -177,13 +175,13 @@ export default new Vuex.Store({
 
     //GRADOS
     fetchDegree({ commit }) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree')
+      fetch('https://expedienteokpro.azurewebsites.net/Degree')
         .then(result => result.json())
         .then(data => commit('setDegree', data))
     },
     //Buscar por nombre
     searchDegree({ commit }, name) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree/name?name=' + `${name}`)
+      fetch('https://expedienteokpro.azurewebsites.net/Degree/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -193,7 +191,7 @@ export default new Vuex.Store({
     //hacer el post
     addDegree({ commit }, degreeInfo) {
       //commit('addUsers',userInfo)
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree', {
+      fetch('https://expedienteokpro.azurewebsites.net/Degree', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -205,7 +203,7 @@ export default new Vuex.Store({
     },
 
     deleteDegree({ commit }, id) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Degree' + `/${id}`, {
+      fetch('https://expedienteokpro.azurewebsites.net/Degree' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -218,15 +216,28 @@ export default new Vuex.Store({
       //Resetear pagina sin perderla
       commit('deleteDegree', id)
     },
-    //Precios
+
+
+
+    //Pagos
 
     fetchPagos({ commit }) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Pagos')
+      fetch('https://expedienteokpro.azurewebsites.net/Pagos')
         .then(result => result.json())
         .then(data => commit('setPagos', data))
     },
-    /* deletePagos({commit}, id) {
-       fetch('https://localhost:7192/Pagos' + `/${id}`, {
+    searchPagos({ commit }, name) {
+      fetch('https://expedienteokpro.azurewebsites.net/Pagos/pagado?pagado=' + `${true}`)
+
+
+        .then(result => result.json())
+
+        .then(data => commit('setPagos', data))
+      commit('setPagos', name)
+    },
+
+     deletePagos({commit}, id) {
+       fetch('https://expedienteokpro.azurewebsites.net/Pagos' + `/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-type': 'application/json'
@@ -236,11 +247,11 @@ export default new Vuex.Store({
       
       .then(result => result.json())
       .then(data => commit('deletePagos', data))
- 
-    },*/
+      commit('deletePagos', id)
+    },
     //hacer el post
     addPagos({ commit }, pagosInfo) {
-      fetch('https://expedienteservidorpro.azurewebsites.net/Pagos', {
+      fetch('https://expedienteokpro.azurewebsites.net/Pagos', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -255,3 +266,4 @@ export default new Vuex.Store({
   modules: {
   }
 })
+

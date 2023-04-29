@@ -72,6 +72,7 @@ import Vistas from '@/components/Especificas/Vistas.vue'
         Vistas,//Login
     
   },
+ 
   }
 </script>
 

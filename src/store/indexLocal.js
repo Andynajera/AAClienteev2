@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -124,7 +131,7 @@ export default new Vuex.Store({
     //hacer el post
     addUsers({ commit }, userInfo) {
       //commit('addUsers',userInfo)
-      fetch('https://localhost:7192/Pagos', {
+      fetch('https://localhost:7192/Users', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -234,7 +241,7 @@ export default new Vuex.Store({
     },*/
     //hacer el post
     addPagos({ commit }, pagosInfo) {
-      
+      console.log(pagosInfo)
       //commit('addUsers',userInfo)
       fetch('https://localhost:7192/Pagos', {
         method: 'POST',
@@ -251,5 +258,6 @@ export default new Vuex.Store({
   modules: {
   }
 })
+
 
 
