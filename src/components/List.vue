@@ -1,4 +1,54 @@
 <template>
+  <v-card
+
+  >
+    <v-system-bar color="deep-purple darken-3"></v-system-bar>
+
+    <v-app-bar
+      color="deep-purple accent-4"
+      dark
+      prominent
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>      <h1 style="text-align: center">
+        {{ $t("header.search.caption") }}
+      </h1></v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn @click="$i18n.locale = 'es'" style="background-color: red">🇪🇸</v-btn>
+    <v-btn @click="$i18n.locale = 'en'" style="background-color: blue"
+      >🇨🇦󠁧󠁢󠁥󠁮</v-btn
+    >
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            
+           <Vistas></vistas>
+         </v-list-item>
+          
+    
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+
+
+    <!---->
   <v-card class="mx-auto" max-="1500">
     <div style="background-color: pink">
       <h1 style="text-align: center">
@@ -9,16 +59,15 @@
     <v-row no-gutters id="gene">
 
       <!--Buscar por nombre-->
-      <v-container>     
+     
            <v-text-field
-        
         
            class="text-green"
           type="text"
           v-model="name"
           clearable
           hide-details="auto"
-          label="Pon true para buscar los que han pagado "
+          label="Filled"
           placeholder="Search"
           filled
           rounded
@@ -29,7 +78,6 @@
       <v-btn  @click="launchQuery">{{ $t("header.search.button9") }}</v-btn>
 
       <!---->
-</v-container>
       <v-col v-for="n in 1" :key="n" cols="12" sm="4">
         <v-sheet class="ma-2 pa-2">
           <router-link   to="/Users/add" id="bUsers">
@@ -37,16 +85,7 @@
               $t("header.search.button6")
             }}</v-btn>
           </router-link>
-          <router-link  v-if="$store.state.role==='admin'" to="/Pagos" id="bPagos">
-            <v-btn variant="success" color="pink">{{
-              $t("header.search.button")
-            }}</v-btn>
-          </router-link>
-          <router-link to="/" id="bHome">
-            <v-btn variant="success" color="pink">{{
-              $t("header.search.button10")
-            }}</v-btn>
-          </router-link>
+          
         </v-sheet>
       </v-col>
     </v-row>
@@ -102,15 +141,34 @@
       </v-row>
     </v-container>
   </v-card>
+</v-card>
+
 </template>
   
   <script>
 import { mapActions, mapState } from "vuex";
+import Vistas from '@/components/Especificas/Vistas.vue'
 
 export default {
   data() {
     return {};
   },
+  data: () => ({
+      drawer: false,
+      group: null,
+    }),
+    
+    watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+    components: {
+        Vistas,//Login
+    
+  },
+ 
+
   name: "List",
   computed: {
     ...mapState(["Users"]),

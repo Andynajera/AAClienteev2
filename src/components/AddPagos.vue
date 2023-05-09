@@ -3,7 +3,7 @@
      
    <div style="background-color: pink;">
      <h1 style="text-align:center">
-       {{ $t("header.search.caption8") }}
+       {{ $t("header.search.caption6") }}
        </h1>
      </div>
 
@@ -53,7 +53,47 @@
          placeholder="Enter notes" 
          required
        ></v-text-field>
+  
+       <v-checkbox
+         id="input-1"
+         v-model="form.pagado"
+         label="¿Esta pagado?"
+         :counter="20"
+         placeholder="Enter pagado" 
+         required
+       ></v-checkbox>
+       <v-text-field
+         id="input-1"
+         label="YYYY-MM-D"
+         v-model="form.date"
+         type="text"
+         placeholder="Enter date" 
+         
+       ></v-text-field>
+     
+   
+       <v-container fluid>
       
+  </v-container>
+ 
+   
+      
+   <!--  <v-text-field
+         id="input-1"
+         v-model="form.pagado"
+         :counter="20"
+        
+         placeholder="Esta pagado" 
+         required
+       ></v-text-field>
+        <v-text-field
+         id="input-1"
+         v-model="form.date"
+         :counter="20"
+         type="text"
+         placeholder="Enter date" 
+         required
+       ></v-text-field>--> 
      
      <v-btn type="submit"   color="success" variant="primary">Submit</v-btn>
      
@@ -68,20 +108,29 @@
  
  <script>
  import { mapActions } from 'vuex'
+ import Datepicker from 'vuejs-datepicker';
+
+
  export default {
+  
      data(){
+      
          return{
              form:{ 
                  name: '', 
                  price:'',
                  total:'',
                 notes:'',
+                pagado:undefined,
+                date:''
+               
                 
              },
                 
              
          }
      },
+     
      methods:{
          onSubmit(){
            
@@ -90,6 +139,10 @@
                  price: this.form.price, 
                  total: this.form.total, 
                  notes: this.form.notes, 
+
+                 pagado:this.form.pagado,
+                 
+                 date:this.form.date
               
                 
              })
@@ -98,7 +151,7 @@
  
          },
         ...mapActions(['addPagos'])
-     }
+     },
  }
  </script>
  

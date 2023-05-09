@@ -1,6 +1,53 @@
 <template>
 
-   
+<v-card
+
+  >
+    <v-system-bar color="deep-purple darken-3"></v-system-bar>
+
+    <v-app-bar
+      color="deep-purple accent-4"
+      dark
+      prominent
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>      <h1 style="text-align: center">
+        {{ $t("header.search.caption") }}
+      </h1></v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn @click="$i18n.locale = 'es'" style="background-color: red">🇪🇸</v-btn>
+    <v-btn @click="$i18n.locale = 'en'" style="background-color: blue"
+      >🇨🇦󠁧󠁢󠁥󠁮</v-btn
+    >
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            
+           <Vistas></vistas>
+
+         </v-list-item>
+          
+    
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
   
     <v-card class="mx-auto" max-="1500">
 
@@ -11,28 +58,15 @@
     </div>
 
       <v-container class="bg-surface-variant"> 
-        <v-text-field
-        
-        class="text-green"
-          type="text"
-          v-model="pagado"
-          clearable
-          hide-details="auto"
-          label="Pon true para buscar los que han pagado "
-          placeholder="Search"
-          filled
-          rounded
-          dense
-          single-line
-          append-icon="mdi-magnify"
-         
-        />
-        <v-btn id="pagadores" variant="success" color="yellow" @click="launchQuery"> {{ $t("header.search.button11") }}</v-btn>
-        
-        <router-link to="/AddPagos" id="bpagos">no esta listo
-        <v-btn variant="success" color="yellow">{{ $t("header.search.button6") }}</v-btn>
+        <v-btn id="pagadores"  v-model="pagado" variant="success" color="pink" @click="fetchPagos"> {{ $t("header.search.button12") }}</v-btn>
+
+        <v-btn id="pagadores"  v-model="pagado" variant="success" color="yellow" @click="launchQuery"> {{ $t("header.search.button11") }}</v-btn>
+        <router-link to="/AddPagos" >
+        <v-btn variant="success" id="pagadores" color="yellow">{{ $t("header.search.button6") }}</v-btn>
         
       </router-link>
+     
+
 
 
 
@@ -60,9 +94,9 @@
                   >
                   <v-card-title style="font-size: 12px" class="texto"
                     ><b>total: &nbsp; </b> {{ item.total }}</v-card-title>
-                    <v-card-title style="font-size: 12px" class="texto"
+                    <v-card-title style="font-size: 12px" 
                     ><b>pagado: &nbsp; </b> {{ item.pagado }}</v-card-title>
-                    <v-card-title style="font-size: 12px" class="texto"
+                    <v-card-title style="font-size: 12px" 
                     ><b>fecha: &nbsp; </b> {{ item.date }}</v-card-title>
                     <v-card-title style="font-size: 12px" class="texto"
                     ><b>notas: &nbsp; </b> {{ item.notes }}</v-card-title>
@@ -82,18 +116,42 @@
         </v-row>
       </v-container> 
     </v-card>
+  </v-card>
+
   
   </template>
   
   <script>
   
   import { mapState,mapActions } from "vuex";
-  
+  import Vistas from '@/components/Especificas/Vistas.vue'
+
   export default {
 
     data() {
-      return { };
+      
+      return { row:{
+         pagado:false,
+
+      }
+       
+       };
     },
+    data: () => ({
+      drawer: false,
+      group: null,
+    }),
+    watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+    components: {
+    
+        Vistas,//Login
+    
+  },
+ 
     name:'Pagos',
     
     computed: {
@@ -116,6 +174,7 @@
           },
 
 
+
        launchQuery() {
       if(this.pagado){
         this.searchPagos (this.pagado);
@@ -123,7 +182,7 @@
       }
       this.fetchPagos();
     }, 
-       
+       pagado(){}
     },
  
 
@@ -132,12 +191,7 @@
   </script>
   
   <style>
-  #bpagos{
-    display: block;
-  padding: 0.5rem 1rem;
-  width: 200px;
-  margin: 0 auto;
-  }
+
   #pagadores{
     display: block;
     padding: 0.9rem 1rem;

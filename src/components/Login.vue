@@ -1,5 +1,52 @@
 <template>
-  
+  <v-card
+
+  >
+    <v-system-bar color="deep-purple darken-3"></v-system-bar>
+
+    <v-app-bar
+      color="deep-purple accent-4"
+      dark
+      prominent
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>      <h1 style="text-align: center">
+        {{ $t("header.search.caption") }}
+      </h1></v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn @click="$i18n.locale = 'es'" style="background-color: red">🇪🇸</v-btn>
+    <v-btn @click="$i18n.locale = 'en'" style="background-color: blue"
+      >🇨🇦󠁧󠁢󠁥󠁮</v-btn
+    >
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            
+           <Vistas></vistas>
+         </v-list-item>
+          
+    
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    
     <div>
 
       <div style="background-color: pink;">
@@ -47,18 +94,32 @@
     </v-form>
     </v-sheet>
   </div>
+</v-card>
 
-</template>
+  </template>
 
 <script>
+import Vistas from '@/components/Especificas/Vistas.vue'
 export default {
    name:'Login',
 data(){
   return{
     username:'',
-    password:''
+    password:'',
+
+    drawer: false,
+      group: null,
   }
 },
+watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+    components: {
+        Vistas,//Login
+    
+  },
 methods:{
 doLogin(){
   this.$store.dispatch('login',{username : this.username,password: this.password})

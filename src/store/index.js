@@ -35,8 +35,8 @@ export default new Vuex.Store({
     setUsers(state, payload) {
       state.Users = payload
     },
-    setUsersId(state,setIDU){
-    state.Users = state.Users.filter(({ id }) => id === setIDU);
+    setUsersId(state, setIDU) {
+      state.Users = state.Users.filter(({ id }) => id === setIDU);
     },
     addUsers(state, payload) {
       state.Users.push(payload)
@@ -70,9 +70,9 @@ export default new Vuex.Store({
     setPagos(state, payload) {
       state.Pagos = payload
     },
-     deletePagos(state, idToRemove) {
-       state.Pagos = state.Pagos.filter(({id}) => id !== idToRemove);
-     },
+    deletePagos(state, idToRemove) {
+      state.Pagos = state.Pagos.filter(({ id }) => id !== idToRemove);
+    },
     addPagos(state, payload) {
       state.Pagos.push(payload)
     },
@@ -111,12 +111,12 @@ export default new Vuex.Store({
     //USUARIOS
     //ver el listado de usuarios
     fetchUsers({ commit }) {
-      fetch('https://expedienteokpro.azurewebsites.net/Users')
+      fetch('https://localhost:7192/Users')
         .then(result => result.json())
         .then(data => commit('setUsers', data))
     },
-    setUsersId({ commit },id) {
-      fetch('https://expedienteokpro.azurewebsites.net/Users' + `/${this.id}`)
+    setUsersId({ commit }, id) {
+      fetch('https://localhost:7192/Users' + `/${this.id}`)
         .then(result => result.json())
         .then(data => commit('setUsersId', data))
 
@@ -126,9 +126,8 @@ export default new Vuex.Store({
 
     //hacer el post
     addUsers({ commit }, userInfo) {
-      debugger
       //commit('addUsers',userInfo)
-      fetch('https://expedienteokpro.azurewebsites.net/Users', {
+      fetch('https://localhost:7192/Users', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -141,7 +140,7 @@ export default new Vuex.Store({
 
     //Buscar por nombre
     searchUser({ commit }, name) {
-      fetch('https://expedienteokpro.azurewebsites.net/Users/name?name=' + `${name}`)
+      fetch('https://localhost:7192/Users/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -153,7 +152,7 @@ export default new Vuex.Store({
 
 
     deleteUser({ commit }, id) {
-      fetch('https://expedienteokpro.azurewebsites.net/Users' + `/${id}`, {
+      fetch('https://localhost:7192/Users' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -175,13 +174,13 @@ export default new Vuex.Store({
 
     //GRADOS
     fetchDegree({ commit }) {
-      fetch('https://expedienteokpro.azurewebsites.net/Degree')
+      fetch('https://localhost:7192/Degree')
         .then(result => result.json())
         .then(data => commit('setDegree', data))
     },
     //Buscar por nombre
     searchDegree({ commit }, name) {
-      fetch('https://expedienteokpro.azurewebsites.net/Degree/name?name=' + `${name}`)
+      fetch('https://localhost:7192/Degree/name?name=' + `${name}`)
 
 
         .then(result => result.json())
@@ -191,7 +190,7 @@ export default new Vuex.Store({
     //hacer el post
     addDegree({ commit }, degreeInfo) {
       //commit('addUsers',userInfo)
-      fetch('https://expedienteokpro.azurewebsites.net/Degree', {
+      fetch('https://localhost:7192/Degree', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -203,7 +202,7 @@ export default new Vuex.Store({
     },
 
     deleteDegree({ commit }, id) {
-      fetch('https://expedienteokpro.azurewebsites.net/Degree' + `/${id}`, {
+      fetch('https://localhost:7192/Degree' + `/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'
@@ -222,36 +221,36 @@ export default new Vuex.Store({
     //Pagos
 
     fetchPagos({ commit }) {
-      fetch('https://expedienteokpro.azurewebsites.net/Pagos')
+      fetch('https://localhost:7192/Pagos')
         .then(result => result.json())
         .then(data => commit('setPagos', data))
     },
-    searchPagos({ commit }, name) {
-      fetch('https://expedienteokpro.azurewebsites.net/Pagos/pagado?pagado=' + `${true}`)
+    searchPagos({ commit }) {
+      fetch('https://localhost:7192/Pagos/pagado?pagado=' + `${false}`)
 
 
         .then(result => result.json())
 
         .then(data => commit('setPagos', data))
-      commit('setPagos', name)
+      commit('setPagos')
     },
 
-     deletePagos({commit}, id) {
-       fetch('https://expedienteokpro.azurewebsites.net/Pagos' + `/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify
+    deletePagos({ commit }, id) {
+      fetch('https://localhost:7192/Pagos' + `/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify
       })
-      
-      .then(result => result.json())
-      .then(data => commit('deletePagos', data))
+
+        .then(result => result.json())
+        .then(data => commit('deletePagos', data))
       commit('deletePagos', id)
     },
     //hacer el post
     addPagos({ commit }, pagosInfo) {
-      fetch('https://expedienteokpro.azurewebsites.net/Pagos', {
+      fetch('https://localhost:7192/Pagos', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'

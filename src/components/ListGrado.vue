@@ -9,8 +9,11 @@
         <v-btn variant="success" color="pink">{{ $t("header.search.button6") }}</v-btn>
         
       </router-link>
+    </v-container>
+
         <!--Buscar por grado-->
-        <v-container>        <v-text-field
+        <v-container >      
+            <v-text-field
         
           class="text-green"
           type="text"
@@ -29,7 +32,7 @@
         <v-btn @click="launchQuery">{{ $t("header.search.button9") }}</v-btn>
 
         <!---->
-</v-container>
+
 
         <v-row dense>
           <v-col v-for="item in Degree" :key="item.id" cols="12">

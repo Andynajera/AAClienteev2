@@ -1,8 +1,6 @@
 <template>
   <v-card
-    class="mx-auto overflow-hidden"
-    height="4000"
-    width="3440"
+
   >
     <v-system-bar color="deep-purple darken-3"></v-system-bar>
 
