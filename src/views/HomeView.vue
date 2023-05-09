@@ -13,6 +13,7 @@
 
 import Menu from '@/components/Menu.vue'
 import ListGrado from "@/components/ListGrado.vue";
+
 //import Login from '@/components/Login.vue'
 export default {
   name: "Home",
@@ -20,7 +21,7 @@ export default {
 
   components: {
     ListGrado,//Login
-    Menu
+    Menu,
   },
 };
 </script>

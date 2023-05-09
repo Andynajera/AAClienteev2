@@ -1,4 +1,54 @@
 <template>
+  <v-card
+
+  >
+    <v-system-bar color="deep-purple darken-3"></v-system-bar>
+
+    <v-app-bar
+      color="deep-purple accent-4"
+      dark
+      prominent
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>      <h1 style="text-align: center">
+        {{ $t("header.search.caption") }}
+      </h1></v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn @click="$i18n.locale = 'es'" style="background-color: red">🇪🇸</v-btn>
+    <v-btn @click="$i18n.locale = 'en'" style="background-color: blue"
+      >🇨🇦󠁧󠁢󠁥󠁮</v-btn
+    >
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            
+           <Vistas></vistas>
+         </v-list-item>
+          
+    
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+
+
+    <!---->
   <v-card class="mx-auto" max-="1500">
     <div style="background-color: pink">
       <h1 style="text-align: center">
@@ -9,26 +59,25 @@
     <v-row no-gutters id="gene">
 
       <!--Buscar por nombre-->
-      <v-container>        <v-text-field
+     
+           <v-text-field
         
-        class="text-green"
-        type="text"
-        v-model="name"
-        clearable
-        hide-details="auto"
-        label="Filled"
-        placeholder="Search"
-        filled
-        rounded
-        dense
-        single-line
-        append-icon="mdi-magnify"
-       
+           class="text-green"
+          type="text"
+          v-model="name"
+          clearable
+          hide-details="auto"
+          label="Filled"
+          placeholder="Search"
+          filled
+          rounded
+          dense
+          single-line
+          append-icon="mdi-magnify"
       />
       <v-btn  @click="launchQuery">{{ $t("header.search.button9") }}</v-btn>
 
       <!---->
-</v-container>
       <v-col v-for="n in 1" :key="n" cols="12" sm="4">
         <v-sheet class="ma-2 pa-2">
           <router-link   to="/Users/add" id="bUsers">
@@ -36,16 +85,7 @@
               $t("header.search.button6")
             }}</v-btn>
           </router-link>
-          <router-link  v-if="$store.state.role==='admin'" to="/Pagos" id="bPagos">
-            <v-btn variant="success" color="pink">{{
-              $t("header.search.button")
-            }}</v-btn>
-          </router-link>
-          <router-link to="/" id="bHome">
-            <v-btn variant="success" color="pink">{{
-              $t("header.search.button10")
-            }}</v-btn>
-          </router-link>
+          
         </v-sheet>
       </v-col>
     </v-row>
@@ -73,17 +113,19 @@
                 <v-card-title style="font-size: 12px" class="texto"
                   ><b>Email: &nbsp; </b> {{ item.email }}</v-card-title
                 >
-                <v-card-title style="font-size: 12px" class="texto"
-                  ><b>Grado: &nbsp; </b> {{ item.nameDegree }}</v-card-title
+                <v-card-title style="font-size: 12px" 
+                  ><b>nameDegree: &nbsp; </b> {{ item.nameDegree }}</v-card-title
+                >
+                <v-card-title style="font-size: 12px" 
+                  ><b>Notas: &nbsp; </b> {{ item.notas }}</v-card-title
                 >
                 <!--//Conseguir clikar y que vaya al id-->
-
                 <v-btn
                   :item="Users"
-                  v-on:click="showUserDetails"
+                  v-on:click="showUserDetails(item.id)"
                   color="yellow"
                   variant="primary"
-                  >{{ $t("header.search.button5") }}</v-btn
+                  >{{ $t("header.search.button5") }},{{ item.id }}</v-btn
                 >
                 <!--delete-->
                 <v-btn  v-if="$store.state.role==='admin'"
@@ -99,15 +141,34 @@
       </v-row>
     </v-container>
   </v-card>
+</v-card>
+
 </template>
   
   <script>
 import { mapActions, mapState } from "vuex";
+import Vistas from '@/components/Especificas/Vistas.vue'
 
 export default {
   data() {
     return {};
   },
+  data: () => ({
+      drawer: false,
+      group: null,
+    }),
+    
+    watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+    components: {
+        Vistas,//Login
+    
+  },
+ 
+
   name: "List",
   computed: {
     ...mapState(["Users"]),
@@ -119,19 +180,28 @@ export default {
   },
   methods: {
     showUserDetails(item) {
+      
       //enrrutamiento clickando al que pinches
-      this.$router.push(`Users/${item.id}`);
+      this.$router.push(`Users/${item}`);
     },
-    ...mapActions({ deleteUser: "deleteUser", searchUser: "searchUser" }),
+
+
+    ...mapActions({ deleteUser: "deleteUser", searchUser: "searchUser",setUsersId:"setUsersId" ,fetchUsers:"fetchUsers" }),
+
 
     launchQuery() {
-      this.searchUser(this.name);
+      if(this.name){
+        this.searchUser(this.name);
+        return
+      }
+      this.fetchUsers();
     }, 
-    //metodo creado por dar error en console
+    //metodo creado por dar error en console|
     name(){},
     
     onDeleteUser(id) {
       this.deleteUser(id);
+      
     },
   },
 };

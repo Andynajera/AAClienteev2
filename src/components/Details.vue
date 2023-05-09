@@ -17,16 +17,16 @@
                     height="200px"
                     cover
                   ></v-img>
+        
         <v-list-group v-if="selectedUsers" >
           <v-list-item><td>name={{ selectedUsers.name }}</td></v-list-item>
           <v-list-item><td>email={{ selectedUsers.email }}</td></v-list-item>
           <v-list-item><td>grado={{ selectedUsers.nameDegree }}</td></v-list-item>
           <v-list-item><td>genero={{ selectedUsers.gender }}</td></v-list-item>
-          <v-list-item><td>birth={{ selectedUsers.birth }}</td></v-list-item>
-          <v-list-item><td>height={{ selectedUsers.height }}</td></v-list-item>
-          <v-list-item><td>brothers={{ selectedUsers.brothers }}</td></v-list-item>
+          <v-list-item><td>nº asignaturas matriculadas={{ selectedUsers.asignaturaMAtriculadas }}</td></v-list-item>
+          <v-list-item><td>fecha de matriculacion={{ selectedUsers.matriculacion }}</td></v-list-item>
+          <v-list-item><td>notas={{ selectedUsers.notas }}</td></v-list-item>
         </v-list-group>
-      
     </v-sheet>
     </div>
   </template>

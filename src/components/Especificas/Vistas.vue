@@ -18,6 +18,16 @@
         
       </router-link>
     </v-container>
+    <v-container>
+      <router-link   v-if="$store.state.role==='userTeacher'"  to="/">
+        <v-btn variant="success" color="pink">{{ $t("header.search.button3") }}</v-btn>
+        
+      </router-link>
+      <router-link   v-if="$store.state.role=== 'admin'"  to="/">
+        <v-btn variant="success" color="pink">{{ $t("header.search.button3") }}</v-btn>
+        
+      </router-link>
+    </v-container>
   <v-container>
       <router-link  v-if="$store.state.role==='admin'"  to="/Pagos">
         <v-btn variant="success" color="pink">{{ $t("header.search.button") }}</v-btn>

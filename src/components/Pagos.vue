@@ -1,21 +1,75 @@
 <template>
 
-   
+<v-card
+
+  >
+    <v-system-bar color="deep-purple darken-3"></v-system-bar>
+
+    <v-app-bar
+      color="deep-purple accent-4"
+      dark
+      prominent
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>      <h1 style="text-align: center">
+        {{ $t("header.search.caption") }}
+      </h1></v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn @click="$i18n.locale = 'es'" style="background-color: red">🇪🇸</v-btn>
+    <v-btn @click="$i18n.locale = 'en'" style="background-color: blue"
+      >🇨🇦󠁧󠁢󠁥󠁮</v-btn
+    >
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            
+           <Vistas></vistas>
+
+         </v-list-item>
+          
+    
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
   
-    <v-card class="mx-auto" max-width="1500">
+    <v-card class="mx-auto" max-="1500">
 
       <div style="background-color: pink;">
        <h1 style="text-align:center">
         {{ $t("header.search.caption2") }}
       </h1> 
     </div>
- 
+
       <v-container class="bg-surface-variant"> 
-        <router-link to="/AddPagos" id="bpagos">no esta listo
-        <v-btn variant="success" color="yellow">{{ $t("header.search.button6") }}</v-btn>
+        <v-btn id="pagadores"  v-model="pagado" variant="success" color="pink" @click="fetchPagos"> {{ $t("header.search.button12") }}</v-btn>
+
+        <v-btn id="pagadores"  v-model="pagado" variant="success" color="yellow" @click="launchQuery"> {{ $t("header.search.button11") }}</v-btn>
+        <router-link to="/AddPagos" >
+        <v-btn variant="success" id="pagadores" color="yellow">{{ $t("header.search.button6") }}</v-btn>
         
       </router-link>
-       
+     
+
+
+
+
         <v-row no-gutters>
          
           <v-col v-for="item in Pagos" :key="item.id" cols="19" sm="3">
@@ -40,72 +94,109 @@
                   >
                   <v-card-title style="font-size: 12px" class="texto"
                     ><b>total: &nbsp; </b> {{ item.total }}</v-card-title>
-                    <v-card-title style="font-size: 12px" class="texto"
+                    <v-card-title style="font-size: 12px" 
                     ><b>pagado: &nbsp; </b> {{ item.pagado }}</v-card-title>
-                    <v-card-title style="font-size: 12px" class="texto"
+                    <v-card-title style="font-size: 12px" 
                     ><b>fecha: &nbsp; </b> {{ item.date }}</v-card-title>
                     <v-card-title style="font-size: 12px" class="texto"
                     ><b>notas: &nbsp; </b> {{ item.notes }}</v-card-title>
                     <v-card-title style="font-size: 12px" class="texto"
                     ><b>usuarios: &nbsp; </b> {{ item.users }}</v-card-title>
                <!--//Conseguir clikar y que vaya al id-->   
-                  <v-btn :item="Pagos" v-on:click="showUserDetails" color="yellow" variant="primary">{{ $t("header.search.button5") }}</v-btn>
-          <!-- <v-btn @click="onDeletePagos(item.id)"  color="pink" variant="primary">BORRAR {{ item.id }}</v-btn> --> 
-                 
+                  <v-btn :item="Pagos" v-on:click="showUserDetails(item.id)" color="yellow" variant="primary">{{ $t("header.search.button5") }} {{ item.id }}</v-btn>
+           <v-btn v-if="$store.state.role==='admin'"
+           @click="onDeletePagos(item.id)"
+             color="pink" variant="primary"> {{ $t("header.search.button7") }} ,{{ item.id }}</v-btn> 
+         
                
                 </div>
               </v-card>
             </v-sheet>
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> 
     </v-card>
+  </v-card>
+
   
   </template>
   
   <script>
   
   import { mapState,mapActions } from "vuex";
-  
+  import Vistas from '@/components/Especificas/Vistas.vue'
+
   export default {
 
     data() {
-      return { };
+      
+      return { row:{
+         pagado:false,
+
+      }
+       
+       };
     },
+    data: () => ({
+      drawer: false,
+      group: null,
+    }),
+    watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+    components: {
+    
+        Vistas,//Login
+    
+  },
+ 
     name:'Pagos',
     
     computed: {
       ...mapState(["Pagos"]),
     },
     created() {
-     
+      
     },
     methods: {
-   
+
       showUserDetails(item) {
         //enrrutamiento clickando al que pinches
-        this.$router.push(`Users/${item.id}`);
+        this.$router.push(`Users/${item}`);
       },
-     /* 
-      ...mapActions({ deletePagos: 'deletePagos',}),
+      
+      ...mapActions({ deletePagos: 'deletePagos', searchPagos:"searchPagos",fetchPagos:"fetchPagos"}),
       
       onDeletePagos(id) {
             this.deletePagos(id)
           },
 
-       */
+
+
+       launchQuery() {
+      if(this.pagado){
+        this.searchPagos (this.pagado);
+        return
+      }
+      this.fetchPagos();
+    }, 
+       pagado(){}
     },
-  
+ 
 
 
   }; 
   </script>
   
   <style>
-  #bpagos{
+
+  #pagadores{
     display: block;
-  padding: 0.5rem 1rem;
+    padding: 0.9rem 1rem;
   width: 200px;
   margin: 0 auto;
   }
+  
   </style>

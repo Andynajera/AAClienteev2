@@ -17,8 +17,11 @@ const messages = {
             caption3:'Login',
             caption4:'User List',
             captio5:'Users Details',
-            caption6:'List of Add Payments',
+            caption6:'Add Payments',
             caption7:'Add Users',
+            caption8:'Add Degrees',
+            caption9:'Pay List',
+
 
             button:'Payments',
             button2:'Login',
@@ -28,7 +31,9 @@ const messages = {
             button6:'Add',
             button7:'Delete',
             button9:'Search by name',
-            button10:'Search by degree'
+            button10:'Search by degree',
+            button11:'See No Payments',
+            button12:' See all'
         }
     }
   },
@@ -49,6 +54,9 @@ const messages = {
             caption5:'Detalles de los Usuarios',
             caption6:'Añadir pagos',
             caption7:'Añadir Usuarios',
+            caption8:'Añadir Grados',
+            caption9:'Lista de Pagos',
+
 
             button:'Pagos',
             button2:'Iniciar sesion',
@@ -58,7 +66,10 @@ const messages = {
             button6:'Añadir',
             button7:'Borrar',
             button9:'Buscar por nombre',
-            button10:'Buscar por grados'
+            button10:'Buscar por grados',
+            button11:' NO PAGADORES',
+            button12:' Ver todos'
+
 
         }
     }

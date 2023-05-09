@@ -2,30 +2,18 @@
   <!--header-->
   <div>
     <!--i18n-->
-   
-  
-    <v-container>
-      <router-link   v-if="$store.state.role==='admin'"  to="/addDegree">
+
+    <v-card class="mx-auto" max-="1500">
+      <v-container>
+        <router-link   v-if="$store.state.role==='admin'"  to="/addDegree">
         <v-btn variant="success" color="pink">{{ $t("header.search.button6") }}</v-btn>
         
       </router-link>
     </v-container>
 
-    <!--<router-link to="/login">
-      <v-btn variant="success" color="pink">{{
-        $t("header.search.button2")
-      }}</v-btn>
-    </router-link>
-    <router-link to="/">
-      <v-btn variant="success" color="yellow">{{
-        $t("header.search.button3")
-      }}</v-btn>
-    </router-link>-->
-
-    <v-card class="mx-auto" max-width="1500">
-      <v-container>
         <!--Buscar por grado-->
-        <v-container>        <v-text-field
+        <v-container >      
+            <v-text-field
         
           class="text-green"
           type="text"
@@ -44,7 +32,7 @@
         <v-btn @click="launchQuery">{{ $t("header.search.button9") }}</v-btn>
 
         <!---->
-</v-container>
+
 
         <v-row dense>
           <v-col v-for="item in Degree" :key="item.id" cols="12">
@@ -97,11 +85,15 @@ export default {
     ...mapState(["Degree"]),
   },
   methods: {
-    ...mapActions({ deleteDegree: "deleteDegree",searchDegree: "searchDegree" }),
+    ...mapActions({ deleteDegree: "deleteDegree",searchDegree: "searchDegree",fetchDegree:"fetchDegree" }),
 
     launchQuery() {
-      this.searchDegree(this.name);
-    },
+      if(this.name){
+        this.searchDegree(this.name);
+        return
+      }
+      this.fetchDegree();
+    }, 
     onDeleteDegree(id) {
       this.deleteDegree(id);
     },
